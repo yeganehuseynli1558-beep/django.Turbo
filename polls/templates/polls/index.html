@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>TURBO.AZ - Avtomobil elanları</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        /* Qırmızı başətlik hissəsi */
+        .header {
+            background-color: #cc0000;
+            color: white;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .add-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        .add-btn:hover {
+            background-color: #218838;
+        }
+        .container {
+            width: 85%;
+            margin: 20px auto;
+        }
+        h2 {
+            color: #333;
+        }
+        /* Elanların grid yerleşimi */
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        /* Hər bir elan kartı */
+        .car-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+        .car-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        .car-info {
+            padding: 15px;
+        }
+        .car-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #cc0000;
+            margin-bottom: 5px;
+        }
+        .car-title {
+            font-size: 16px;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .car-details {
+            font-size: 13px;
+            color: #666;
+        }
+        .no-cars {
+            text-align: center;
+            color: #777;
+            padding: 40px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Yuxarıdakı Turbo.az loqosu və Yeni Elan düyməsi -->
+    <div class="header">
+        <div>TURBO.AZ</div>
+        <a href="{% url 'add_car' %}" class="add-btn">+ Yeni Elan</a>
+    </div>
+
+    <div class="container">
+        <h2>Elanlar</h2>
+        
+        <div class="car-grid">
+            {% for car in cars %}
+                <a href="{% url 'car_detail' car.id %}" style="text-decoration: none; color: inherit;">
+                    <div class="car-card">
+                        {% if car.image %}
+                            <img src="{{ car.image.url }}" alt="{{ car.brand }}">
+                        {% endif %}
+                        <div class="car-info">
+                            <div class="car-price">{{ car.price }} AZN</div>
+                            <div class="car-title">{{ car.brand }} {{ car.model|default:"" }}</div>
+                            <div class="car-details">
+                                {{ car.year }} il, {{ car.mileage }} km, {{ car.city }}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% empty %}
+                <div class="no-cars">
+                    <p>Hələ ki heç bir elan əlavə olunmayıb.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ car.brand }} {{ car.model }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
+        .header { background: #cc0000; color: white; padding: 15px 30px; font-size: 24px; font-weight: bold; }
+        .container { width: 600px; background: white; padding: 20px; margin: 30px auto; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 4px; }
+        .price { color: #cc0000; font-size: 24px; font-weight: bold; margin: 15px 0; }
+        .back-btn { display: inline-block; background: #6c757d; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; margin-top: 15px; }
+        .back-btn:hover { background: #5a6268; }
+    </style>
+</head>
+<body>
+
+    <div class="header">TURBO.AZ - Elan Məlumatı</div>
+
+    <div class="container">
+        {% if car.image %}
+            <img src="{{ car.image.url }}" alt="{{ car.brand }}">
+        {% endif %}
+        <h2>{{ car.brand }} {{ car.model }}</h2>
+        <div class="price">{{ car.price }} AZN</div>
+        <p><strong>Şəhər:</strong> {{ car.city }}</p>
+        <p><strong>Buraxılış ili:</strong> {{ car.year }}</p>
+        <p><strong>Yürüş:</strong> {{ car.mileage }} km</p>
+        <a href="{% url 'home' %}" class="back-btn">← Ana səhifəyə qayıt</a>
+    </div>
+
+</body>
+</html>
